@@ -51,7 +51,9 @@ frontend$
 
 # Django:
 
-Django expects the react build folder to be inside backend folder.After running run build move the build folder to ./backend
+The Django app is based on [*Django Settings Best Practices*](https://djangostars.com/blog/configuring-django-settings-best-practices/)
+
+Django expects the react build folder to be inside backend folder. After running run build move the build folder to ./backend
 
 Versions:
 
