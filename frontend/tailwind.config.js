@@ -18,6 +18,7 @@ module.exports = {
 				cOrange: cColors.cOrange,
 				cPurple: cColors.cPurple,
 				cYellow: cColors.cYellow,
+				cViolet: cColors.cViolet,
 			},
 		},
 	},

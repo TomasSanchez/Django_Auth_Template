@@ -3,7 +3,9 @@ function App() {
 	return (
 		<>
 			<div className='container mx-auto h-96 rounded-lg flex-col flex justify-center '>
-				<div className='bg-cOrange-1 border border-cGray-22'>This is the front page!</div>
+				<div className='bg-gradient-to-r from-cViolet-40 via-cViolet-20 to-cViolet-2 hover:from-cGreen-40 hover:to-cGreen-1 border-cGray-22'>
+					This is the front page!
+				</div>
 				<div className='bg-cOrange-2 border border-cGray-22'>This is the front page!</div>
 				<div className='bg-cOrange-3 border border-cGray-22'>This is the front page!</div>
 				<div className='bg-cOrange-4 border border-cGray-22'>This is the front page!</div>

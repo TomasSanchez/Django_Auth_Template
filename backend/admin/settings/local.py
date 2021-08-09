@@ -5,7 +5,7 @@ DEBUG = True
 
 SECRET_KEY = env.str('SECRET_KEY', default='django-insecure-)udk^l*hobneqn5-fm@k7@cukxhq7a%#_(0fsmpzjb%%)=@=$z')
 
-ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1"]
+ALLOWED_HOSTS = ["*"]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -18,6 +18,18 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
+# For easy startup
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
+
+# Uncomment to run on postgress db on development
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -27,15 +39,12 @@ DATABASES = {
         'HOST': env.str('POSTGRES_HOST',  'localhost'),
     }
 }
+"""
 
 CORS_ALLOWED_ORIGINS = [
+    # React development server
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    "http://localhost:5000",
-    "http://127.0.0.1:5000",
-    "http://172.18.0.3:3000",
-    "http://localhost:3000",
-    "http://172.*.*.*:3000",
 ]
 
 CORS_ALLOW_HEADERS = ['content-disposition', 'accept-encoding',

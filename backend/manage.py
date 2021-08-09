@@ -10,15 +10,19 @@ def main():
     current_path = Path(__file__).parent.resolve()
     env = environ.Env()
     env.read_env(str(current_path / ".env.local"))
-    DEBUG = env.bool('DEBUG', False)
+
+    """
+    Ideally best to keep default to False for production reasons 
+    but to ease installation it is keept to true in case you forget to configure env file
+    """
+    # DEBUG = env.bool('DEBUG', False)
+    DEBUG = env.bool('DEBUG', True)
 
     if DEBUG:
-        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'admin.settings.settings')
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'admin.settings.local')
     else:
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'admin.settings.production')
 
-    
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'admin.settings')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

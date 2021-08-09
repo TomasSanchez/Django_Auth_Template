@@ -8,18 +8,7 @@ DEBUG = False
 
 SECRET_KEY = env.str("SECRET_KEY")
 
-# TODO Set list on env file
-ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["*"])
-
-
-CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            "hosts": [env.str('REDIS_URL', 'redis://localhost:6379')],
-        },
-    },
-}
+ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS")
 
 DATABASES = {
     'default': {
@@ -32,7 +21,5 @@ DATABASES = {
     }
 }
 
-# Conf static and media files to work with nginx
-STATIC_URL = '/django_static/'
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'django_static_files')
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True

@@ -6,11 +6,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 env = environ.Env()
 env.read_env(str(BASE_DIR / ".env.local"))
 
-DEBUG = True
-
-ALLOWED_HOSTS = ['*']
-
-
 DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -31,7 +26,7 @@ LOCAL_APPS = [
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
-
+AUTH_USER_MODEL = 'users.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -61,11 +56,20 @@ TEMPLATES = [
     },
 ]
 
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/3.2/howto/static-files/
+
+STATIC_URL = '/static/'
+
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'build/static')
+]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+
 WSGI_APPLICATION = 'admin.wsgi.application'
-
-
-# Password validation
-# https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -82,10 +86,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/3.2/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = "America/Argentina/Buenos_Aires"
@@ -96,21 +96,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.2/howto/static-files/
-
-STATIC_URL = '/static/'
-
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'build/static')
-]
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
@@ -120,3 +105,36 @@ REST_FRAMEWORK = {
     ],
     "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"]
 }
+
+CSRF_COOKIE_SAMESITE = 'Strict'
+SESSION_COOKIE_SAMESITE = 'Strict'
+
+CSRF_COOKIE_HTTPONLY = False  # False since we will grab it via universal-cookies
+SESSION_COOKIE_HTTPONLY = True
+
+
+
+"""
+
+None
+Black
+Bleach
+Boto3
+Celery
+Coverage
+factory-boy
+Gunicorn
+HTTPX
+Jinja2
+Model Bakery
+Pillow
+Psycopg2
+pytest
+Python Frontmatter
+Python Slugify
+Requests
+sentry-sdk
+sorl-thumbnail
+uWSGI
+WhiteNoise
+"""
