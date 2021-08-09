@@ -51,7 +51,7 @@ frontend$
 
 # Django:
 
-Django expects the react build folder to be inside backend folder. after running run build move the build folder to ./backend
+Django expects the react build folder to be inside backend folder.After running run build move the build folder to ./backend
 
 Versions:
 
@@ -74,11 +74,20 @@ backend$ source venv/bin/activate
 (venv)backend$ pip install psycopg2 psycopg2-binary
 ```
 
+[*Django*](https://www.djangoproject.com)
+
+[*Rest Framework*](https://www.django-rest-framework.org)
+
+[*Django Cors Headers*](https://github.com/adamchainz/django-cors-headers)
+
+[*Django Environ*](https://django-environ.readthedocs.io/en/latest/)
+
+
 # React:
 
 Steps used to create front end with cra:
 
--   Create react app with typescript inside folder
+-   Create react app with typescript inside folder [Docs](https://create-react-app.dev/docs/adding-typescript/)
 
 ```bash
 frontend$ npx create-react-app . --template typescript
@@ -149,7 +158,7 @@ purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
 ...
 ```
 
-include tailwind in index.css:
+* Include tailwind in index.css:
 
 ```css
 // index.css
@@ -159,8 +168,11 @@ include tailwind in index.css:
 ...
 ```
 
-Aditional Instals:
+* Aditional Instals:
 
+[*Axios*](https://axios-http.com/docs/intro)
+
+[*ReactRouterDom*](https://reactrouter.com/web/guides/quick-start)
 ```bash
 frontend$ npm install react-router-dom --save-dev @types/react-router-dom
 frontend$ npm install axios
