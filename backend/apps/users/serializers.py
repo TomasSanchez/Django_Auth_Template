@@ -1,24 +1,13 @@
-from rest_framework import serializers
 from .models import User
 
+from rest_framework import serializers
+
+from django.contrib.auth.password_validation import validate_password
 
 class UserSerializer(serializers.ModelSerializer):
-
-    def get_about(self, obj):
-        pass
-
-    def get_first_name(self, obj):
-        pass
-
-    def get_last_name(self, obj):
-        pass
-
-    def get_user_name(self, obj):
-        pass
-
-    def get_start_date(self, obj):
-        pass
-
+    """
+    Serializer for Authentication User.
+    """
 
     about = serializers.SerializerMethodField()
     fist_name = serializers.SerializerMethodField()
@@ -39,3 +28,31 @@ class UserSerializer(serializers.ModelSerializer):
             instance.set_password(password)
         instance.save()
         return instance
+
+    def get_about(self, obj):
+        pass
+
+    def get_first_name(self, obj):
+        pass
+
+    def get_last_name(self, obj):
+        pass
+
+    def get_user_name(self, obj):
+        pass
+
+    def get_start_date(self, obj):
+        pass
+
+
+class ChangePasswordSerializer(serializers.Serializer):
+    """
+    Serializer for password change endpoint.
+    """
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)
+    new_password2 = serializers.CharField(required=True)
+
+    def validate_new_password(self, value):
+        validate_password(value)
+        return value
