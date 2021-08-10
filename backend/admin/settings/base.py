@@ -86,18 +86,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = "America/Argentina/Buenos_Aires"
-
-USE_I18N = True
-
-USE_L10N = True
-
-USE_TZ = True
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         'rest_framework.authentication.BasicAuthentication',
@@ -112,6 +100,17 @@ SESSION_COOKIE_SAMESITE = 'Strict'
 CSRF_COOKIE_HTTPONLY = False  # False since we will grab it via universal-cookies
 SESSION_COOKIE_HTTPONLY = True
 
+LANGUAGE_CODE = 'en-us'
+
+TIME_ZONE = "America/Argentina/Buenos_Aires"
+
+USE_I18N = True
+
+USE_L10N = True
+
+USE_TZ = True
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 """
