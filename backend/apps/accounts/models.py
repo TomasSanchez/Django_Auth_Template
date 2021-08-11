@@ -1,6 +1,9 @@
 from django.db import models
 from django.conf import settings
+from django.db.models.signals import post_save
+from django.contrib.auth import get_user_model
 
+User = get_user_model()
 
 class Account(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='user_account' )
@@ -12,3 +15,14 @@ class Account(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name} linked to: {self.user}"
+
+
+def post_user_created_signal(sender, instance, created, **kwargs):
+    print(f" ----------------------------- \n sender: {sender} \n-----------------------------")    
+    print(f" ----------------------------- \n instance: {instance} \n-----------------------------")    
+    print(f" ----------------------------- \n created: {created} \n-----------------------------")    
+    print(f" ----------------------------- \n kwargs: {kwargs} \n-----------------------------")    
+    if created:
+        Account.objects.create(user=instance, user_name='', first_name='', last_name='')
+
+post_save.connect(post_user_created_signal, sender=User)

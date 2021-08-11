@@ -1,7 +1,5 @@
 import json
 
-from rest_framework.serializers import Serializer
-
 from .models import User
 from .serializers import UserSerializer, ChangePasswordSerializer
 
@@ -11,10 +9,10 @@ from django.views.decorators.http import require_POST
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.tokens import default_token_generator
 
-from rest_framework.generics import GenericAPIView
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 
 
@@ -53,13 +51,14 @@ def login_view(request):
 @require_POST
 def logout_view(request):
     """ Logout view """
-
+    if request.user.is_authenticated:
+        return Response({"detail": "User is not logged in"}, status=status.HTTP_400_BAD_REQUEST)
     logout(request)
     return Response({"detail": "Logout Successful."}, status=status.HTTP_204_NO_CONTENT)
 
 
 class WhoAmI(APIView):
-    """ Used for checking if user is loged in """
+    """ Used for checking if user is logged in """
 
     permission_classes = [AllowAny]
 
@@ -131,7 +130,7 @@ class ChangePassword(GenericAPIView):
         print(f" ----------------------------- \n self.object: {self.object} \n-----------------------------")
         # user = self.request.user
         serializer = ChangePasswordSerializer(data=request.data)
-        print(f" ----------------------------- \n serializer: {Serializer} \n-----------------------------")
+        print(f" ----------------------------- \n serializer: {serializer} \n-----------------------------")
 
         if serializer.is_valid():
             # Check old password
@@ -140,11 +139,11 @@ class ChangePassword(GenericAPIView):
                 return Response({"detail": "Wrong password."}, status=status.HTTP_400_BAD_REQUEST)
             new_password = serializer.data.get("new_password")
             new_password2 = serializer.data.get("new_password2")
-            if new_password == new_password2:
-                self.object.set_password(serializer.data.get("new_password"))
-                self.object.save()
-                return Response(status=status.HTTP_204_NO_CONTENT)
-            return Response({'detail','Passwords don\'t match'}, status=status.HTTP_400_BAD_REQUEST)
+            if new_password != new_password2:
+                return Response({'detail','Passwords don\'t match'}, status=status.HTTP_400_BAD_REQUEST)
+            self.object.set_password(serializer.data.get("new_password"))
+            self.object.save()
+            return Response(status=status.HTTP_204_NO_CONTENT)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # TEST
