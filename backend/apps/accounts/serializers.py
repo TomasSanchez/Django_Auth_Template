@@ -5,7 +5,7 @@ from .models import Account
 class AccountSerializer(serializers.ModelSerializer):
 
     def get_email(self, obj):
-        pass
+        return obj.user.email
 
     email = serializers.SerializerMethodField()
 

@@ -19,7 +19,7 @@ class UserList(generics.ListAPIView):
     serializer_class = AccountSerializer
 
 
-class UserDetail(generics.RetrieveUpdateDestroyAPIView):
+class UserDetail(generics.RetrieveAPIView):
     """ Returns a single User """
 
     permission_classes=[AllowAny]
@@ -50,7 +50,7 @@ class LoggedInUserDetail(generics.ListAPIView):
         return queryset
 
 # TEST
-class CompleteUserInfo(generics.UpdateAPIView):
+class UpdateUserInfo(generics.UpdateAPIView):
     """ 
     After registration user may be prompted to complete the rest of the account, 
     This is customizable to fit your needs, I included basic info such as username firstname lastname 
