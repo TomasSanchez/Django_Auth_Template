@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { SyntheticEvent, useState } from "react";
 import axiosInstance from "../context/AxiosConfig";
 
 document.title = "Reset password";
@@ -8,14 +8,15 @@ const ResetSend = () => {
 	const [error, setError] = useState("");
 	const [succes, setSucces] = useState("");
 
-	const handleSubmit = async () => {
+	const handleSubmit = async (e: SyntheticEvent) => {
+		e.preventDefault();
 		try {
 			const response = await axiosInstance("/api/users/reset_password_token", {
 				headers: {
 					"Content-Type": "application/json",
 				},
 				method: "POST",
-				data: JSON.stringify(email),
+				data: JSON.stringify({ email }),
 			});
 			if (response.status === 204) {
 				setSucces("Email Sent!");

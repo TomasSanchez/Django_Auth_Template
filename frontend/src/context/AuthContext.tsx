@@ -63,10 +63,12 @@ const AuthContext = ({ children }: any) => {
 
 	const get_csrf = async () => {
 		try {
-			await axiosInstance.get("/api/users/get_csrf", {
+			const response = await axiosInstance.get("/api/users/get_csrf", {
 				withCredentials: true,
 			});
-			setCsrfToken(Cookies.get("csrftoken")!);
+			if (response.status === 200) {
+				setCsrfToken(Cookies.get("csrftoken")!);
+			}
 		} catch (error) {
 			console.error(error);
 		}

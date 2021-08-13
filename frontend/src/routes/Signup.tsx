@@ -18,27 +18,28 @@ const Signup = () => {
 
 	const handleSubmit = async (e: SyntheticEvent) => {
 		e.preventDefault();
-		const response = await axiosInstance("/api/users/create", {
-			headers: {
-				"Content-Type": "application/json",
-				"X-CSRFToken": csrfToken!,
-			},
-			method: "POST",
-			withCredentials: true,
-			data: JSON.stringify(user),
-		});
-		const jsres = response.data;
+		try {
+			const response = await axiosInstance("/api/users/create", {
+				headers: {
+					"Content-Type": "application/json",
+					"X-CSRFToken": csrfToken!,
+				},
+				method: "POST",
+				withCredentials: true,
+				data: JSON.stringify(user),
+			});
 
-		if (response.status === 201) {
-			// ADD modal 'acc created succesfully' then redirect
-			history.push("/login");
-		} else {
-			if (jsres.email) {
-				setGeneralError("Something went wrong, please try again.");
-				setEmailError("User with this Email already exists.");
-				setUser({ ...user, email: "" });
-				console.log("email in: ", emailError);
+			if (response.status === 201) {
+				// ADD modal 'acc created succesfully' then redirect
+				history.push("/login");
+			} else {
+				if (response.data.email) {
+					setEmailError("User with this Email already exists.");
+					setUser({ ...user, email: "" });
+				}
 			}
+		} catch (error) {
+			setGeneralError("Something went wrong, please try again.");
 		}
 	};
 

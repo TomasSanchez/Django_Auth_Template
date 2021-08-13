@@ -44,7 +44,7 @@ def login_view(request):
             return JsonResponse({"detail": "User logged in successfully."}, status=status.HTTP_200_OK)
 
         send_verification_email(user=user, path='/account/activate', subject='Account activation for Django App.', message='Go to the following link to activate your account.')
-        return JsonResponse({"detail": "Account activation needed, Email with activation link sent."}, status=status.HTTP_200_OK)
+        return JsonResponse({"detail": "Account activation needed, Email with activation link sent."}, status=status.HTTP_202_ACCEPTED)
 
     return JsonResponse({"detail": "Invalid credentials."}, status=status.HTTP_403_FORBIDDEN)
 
@@ -55,7 +55,7 @@ def logout_view(request):
     if not request.user.is_authenticated:
         return JsonResponse({"detail": "User is not logged in"}, status=status.HTTP_400_BAD_REQUEST)
     logout(request)
-    return JsonResponse({"detail": "Logout Successful."})
+    return JsonResponse({"detail": "Logout Successful."}, status=status.HTTP_200_OK)
 
 
 class WhoAmI(APIView):

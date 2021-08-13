@@ -31,14 +31,15 @@ const Login = () => {
 				setIsLoggedIn(true);
 				get_current_user_or_log_out();
 				history.push("/");
-			} else if (response.status === 204) {
+			} else if (response.status === 202) {
 				setError("Account not activated, please check your email for account verification");
-			} else {
-				setError("Username or password Incorrect");
 			}
-		} catch (err) {
-			setError("Something went wrong, please refresh and try again.");
-			console.error(err);
+		} catch (error) {
+			if (error.response.status === 403) {
+				setError("Username or password Incorrect");
+			} else {
+				setError("Something went wrong, please refresh and try again.");
+			}
 		}
 	};
 

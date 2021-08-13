@@ -23,7 +23,7 @@ const ActivateAccount = () => {
 					id: user_id,
 				}),
 			});
-			if (response.status === 204) {
+			if (response.status === 200) {
 				setIsValidToken(true);
 			}
 		} catch (error) {

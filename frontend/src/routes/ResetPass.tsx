@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { SyntheticEvent, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import axiosInstance from "../context/AxiosConfig";
@@ -18,9 +18,12 @@ const ResetPass = () => {
 	const token = new URLSearchParams(search).get("verification_token");
 	const user_id = new URLSearchParams(search).get("user_id");
 
+	console.log("token: ", token);
+	console.log("user_id: ", user_id);
+
 	const checkToken = async () => {
 		try {
-			const response = await axiosInstance("/api/users/reset_password_verify", {
+			const response = await axiosInstance("/api/users/reset_password_verify_token", {
 				headers: {
 					"Content-Type": "application/json",
 				},
@@ -30,7 +33,7 @@ const ResetPass = () => {
 					user_id,
 				}),
 			});
-			if (response.status === 204) {
+			if (response.status === 200) {
 				setIsValidToken(true);
 			} else {
 				setIsValidToken(false);
@@ -45,14 +48,18 @@ const ResetPass = () => {
 		// eslint-disable-next-line
 	}, []);
 
-	const handleSubmit = async () => {
+	const handleSubmit = async (e: SyntheticEvent) => {
+		e.preventDefault();
+		console.log("this rand");
+
 		if (passwordCheck(password.password1, password.password2)) {
+			console.log("this didnt!");
 			try {
-				const response = await axiosInstance("", {
+				const response = await axiosInstance("/api/users/reset_password", {
 					headers: {
 						"Content-Type": "application/json",
 					},
-					method: "POST",
+					method: "PUT",
 					data: JSON.stringify({
 						token: token,
 						new_password: password.password1,
@@ -61,8 +68,8 @@ const ResetPass = () => {
 					}),
 				});
 				if (response.status === 204) {
-					// Succes
-					history.push("/");
+					// history.push("/");
+					// Modal with reset password succes
 				} else if (response.data.detail === "Invalid Token.") {
 					setIsValidToken(false);
 				} else {
@@ -92,8 +99,8 @@ const ResetPass = () => {
 						</label>
 						<input
 							type='password'
-							id='password'
-							name='password'
+							id='password1'
+							name='password1'
 							value={password.password1}
 							onChange={(e) =>
 								setPassword({
@@ -110,8 +117,8 @@ const ResetPass = () => {
 						</label>
 						<input
 							type='password'
-							id='password'
-							name='password'
+							id='password2'
+							name='password2'
 							value={password.password2}
 							onChange={(e) =>
 								setPassword({
