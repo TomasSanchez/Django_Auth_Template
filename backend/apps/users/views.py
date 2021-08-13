@@ -237,7 +237,6 @@ def send_verification_email(user, path, subject, message):
 
     verification_token = default_token_generator.make_token(user=user)
     verification_link = f"http://localhost:3000{path}?user_id={user.id}&verification_token={verification_token}"
-    print(f" ----------------------------- \n generated token and verifiaction link {verification_link} \n-----------------------------")
     send_mail(
         subject,
         f'{message} {verification_link}',
