@@ -1,6 +1,11 @@
 export type userType = {
 	id: number;
 	email: string;
+	first_name: string;
+	last_name: string;
+	user_name: string;
+	start_date: string;
+	about: string;
 };
 
 export type accountType = {

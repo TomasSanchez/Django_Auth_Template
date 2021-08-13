@@ -1,10 +1,12 @@
 import { useState } from "react";
+import ChangePassword from "../components/account/ChangePassword";
+import MyInfo from "../components/account/MyInfo";
 
 const Account = () => {
 	const [tab, setTab] = useState(1);
 
 	return (
-		<div className='container mt-8 m-5 rounded-lg'>
+		<div className='container mt-8 m-5 rounded-lg h-80/100'>
 			<div className=' rounded-lg bg-gray-100 border border-gray-200 pt-2 rounded-b-none '>
 				<div className=''>
 					<nav className='flex flex-col sm:flex-row'>
@@ -39,7 +41,22 @@ const Account = () => {
 					</nav>
 				</div>
 			</div>
-			<div className='rounded-lg bg-gray-100 border border-gray-200 py-2 border-t-0 rounded-t-none h-96'></div>
+			<div className='rounded-lg bg-gray-100 border border-gray-200 p-3 border-t-0 rounded-t-none'>
+				{tab === 1 && (
+					<div>
+						{" "}
+						<MyInfo />{" "}
+					</div>
+				)}
+				{tab === 2 && (
+					<div>
+						{" "}
+						<ChangePassword />{" "}
+					</div>
+				)}
+				{tab === 3 && <div> Other info </div>}
+				{tab === 4 && <div> More info </div>}
+			</div>
 		</div>
 	);
 };

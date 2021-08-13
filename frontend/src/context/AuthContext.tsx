@@ -22,7 +22,7 @@ const AuthContext = ({ children }: any) => {
 
 	const get_current_user_or_log_out = async () => {
 		try {
-			const response = await axiosInstance("/api/users/me", {
+			const response = await axiosInstance("/api/users/whoami", {
 				headers: {
 					"Content-Type": "application/json",
 					"X-CSRFToken": csrfToken,
