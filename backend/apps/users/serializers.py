@@ -53,6 +53,6 @@ class ChangePasswordSerializer(serializers.Serializer):
     new_password = serializers.CharField(required=True)
     new_password2 = serializers.CharField(required=True)
 
-    def validate_new_password(self, value):
-        validate_password(value)
-        return value
+    # def validate_new_password(self, value):
+    #     validate_password(value)
+    #     return value

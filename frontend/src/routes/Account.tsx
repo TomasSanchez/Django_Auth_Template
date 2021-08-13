@@ -6,7 +6,7 @@ const Account = () => {
 	const [tab, setTab] = useState(1);
 
 	return (
-		<div className='container mt-8 m-5 rounded-lg h-80/100'>
+		<div className='container mt-8 rounded-lg h-80/100 mx-auto'>
 			<div className=' rounded-lg bg-gray-100 border border-gray-200 pt-2 rounded-b-none '>
 				<div className=''>
 					<nav className='flex flex-col sm:flex-row'>

@@ -21,7 +21,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 
 def get_csrf(request):
     """ Sets csrf cookie """
-    response = JsonResponse({"detail": "Success - Set CSRF cookie."}, status=status.HTTP_202_ACCEPTED)
+    response = JsonResponse({"detail": "Success - Set CSRF cookie."}, status=status.HTTP_200_OK)
     response["X-CSRFToken"] = get_token(request)
     return response
 
@@ -124,19 +124,15 @@ class ChangePassword(GenericAPIView):
         return self.request.user
 
     def put(self, request, *args, **kwargs):
-        print(f" ----------------------------- \n request: {request} \n-----------------------------")
-        print(f" ----------------------------- \n request.data: {request.data} \n-----------------------------")
         self.object = self.get_object()
-        print(f" ----------------------------- \n self.object: {self.object} \n-----------------------------")
         # user = self.request.user
         serializer = ChangePasswordSerializer(data=request.data)
-        print(f" ----------------------------- \n serializer: {serializer} \n-----------------------------")
 
         if serializer.is_valid():
             # Check old password
             old_password = serializer.data.get("old_password")
             if not self.object.check_password(old_password):
-                return Response({"detail": "Wrong password."}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({"detail": "Wrong password."}, status=status.HTTP_403_FORBIDDEN)
             new_password = serializer.data.get("new_password")
             new_password2 = serializer.data.get("new_password2")
             if new_password != new_password2:
