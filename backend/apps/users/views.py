@@ -51,11 +51,10 @@ def login_view(request):
 @require_POST
 def logout_view(request):
     """ Logout view """
-    # if not request.user.is_authenticated:
-    #     return Response({"detail": "User is not logged in"}, status=status.HTTP_400_BAD_REQUEST)
-    print("----------- asd \n ----------------")
+    if not request.user.is_authenticated:
+        return JsonResponse({"detail": "User is not logged in"}, status=status.HTTP_400_BAD_REQUEST)
     logout(request)
-    return JsonResponse({"detail": "Logout Successful."}, status=status.HTTP_204_NO_CONTENT)
+    return JsonResponse({"detail": "Logout Successful."})
 
 
 class WhoAmI(APIView):
@@ -86,7 +85,7 @@ class CreateUser(APIView):
                 return Response({'detail': 'User Created.'}, status=status.HTTP_201_CREATED)
         return Response(reg_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# TEST
+
 class VerifyUser(APIView):
     """
     Api endpoint for verifying a user account after creation/registration
@@ -98,14 +97,9 @@ class VerifyUser(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
-        print(f" ----------------------------- \n request: {request} \n-----------------------------")
-        print(f" ----------------------------- \n request.body: {request.body} \n-----------------------------")
         data = json.loads(request.body)
-        print(f" ----------------------------- \n data: {data} \n-----------------------------")
         user = User.objects.get(id=data['id'])
         token = data['token']
-        print(f" ----------------------------- \n user: {user} \n-----------------------------")
-        print(f" ----------------------------- \n token: {token} \n-----------------------------")
         if default_token_generator.check_token(user, token):
             user.is_active = True
             user.save()
@@ -242,7 +236,8 @@ def send_verification_email(user, path, subject, message):
     """
 
     verification_token = default_token_generator.make_token(user=user)
-    verification_link = f"http//localhost:3000{path}?user_id={user.id}&verification_token={verification_token}"
+    verification_link = f"http://localhost:3000{path}?user_id={user.id}&verification_token={verification_token}"
+    print(f" ----------------------------- \n generated token and verifiaction link {verification_link} \n-----------------------------")
     send_mail(
         subject,
         f'{message} {verification_link}',

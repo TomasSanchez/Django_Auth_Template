@@ -7,9 +7,9 @@ User = get_user_model()
 
 class Account(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='user_account' )
-    user_name = models.CharField(max_length=100, unique=True)
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
+    user_name = models.CharField(max_length=100, unique=True, blank=True, null=True)
+    first_name = models.CharField(max_length=100, blank=True)
+    last_name = models.CharField(max_length=100, blank=True)
     start_date = models.DateTimeField(auto_now_add=True)
     about = models.TextField(blank=True, null=True)
 
@@ -19,6 +19,6 @@ class Account(models.Model):
 
 def post_user_created_signal(sender, instance, created, **kwargs):
     if created:
-        Account.objects.create(user=instance, user_name='', first_name='', last_name='')
+        Account.objects.create(user=instance)
 
 post_save.connect(post_user_created_signal, sender=User)
