@@ -7,8 +7,8 @@ from .views import (
     logout_view,
     VerifyUser,
     ChangePassword,
-    RequestResetPassword,
-    VerifyResetPassword,
+    RequestResetPasswordToken,
+    VerifyResetPasswordToken,
     ResetPassword
 )
 
@@ -22,7 +22,7 @@ urlpatterns = [
     path('create', CreateUser.as_view(), name='create'),
     path('verify', VerifyUser.as_view(), name='verify_user'),
     path('change_password', ChangePassword.as_view(), name='change_password'),
-    path('reset_password_token', RequestResetPassword.as_view(), name='req_reset_password'),
-    path('reset_password_verify', VerifyResetPassword.as_view(), name='verify_reset_password'),
+    path('reset_password_token', RequestResetPasswordToken.as_view(), name='req_reset_password'),
+    path('reset_password_verify_token', VerifyResetPasswordToken.as_view(), name='reset_password_verify_token'),
     path('reset_password', ResetPassword.as_view(), name='reset_password'),
 ]

@@ -21,5 +21,10 @@ DATABASES = {
     }
 }
 
+# httpS for prod
+URL_PROTOCOL = env.str("URL_PROTOCOL", default="https://")
+# For production it would share the domain
+FRONTEND_URL = env.str("FRONTEND_URL", default="example.com")
+
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True

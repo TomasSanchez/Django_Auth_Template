@@ -25,11 +25,13 @@ const ActivateAccount = () => {
 			});
 			if (response.status === 204) {
 				setIsValidToken(true);
-			} else {
-				setIsValidToken(false);
 			}
 		} catch (error) {
-			setError("Something went wrong.");
+			if (error.response.status === 403) {
+				setIsValidToken(false);
+			} else {
+				setError("Something went wrong.");
+			}
 		}
 	};
 

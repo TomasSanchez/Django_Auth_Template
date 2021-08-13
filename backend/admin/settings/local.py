@@ -54,6 +54,8 @@ CORS_ALLOW_CREDENTIALS = True
 
 CORS_EXPOSE_HEADERS = ["Content-Type", "X_CSRFToken"]
 
+URL_PROTOCOL = env.str("URL_PROTOCOL", default="http://")
+FRONTEND_URL = env.str("FRONTEND_URL", default="localhost:3000")
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
