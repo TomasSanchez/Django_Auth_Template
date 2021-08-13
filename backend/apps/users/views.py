@@ -3,6 +3,7 @@ import json
 from .models import User
 from .serializers import UserSerializer, ChangePasswordSerializer
 
+from django.http import JsonResponse
 from django.core.mail import send_mail
 from django.middleware.csrf import get_token
 from django.views.decorators.http import require_POST
@@ -19,8 +20,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 
 def get_csrf(request):
     """ Sets csrf cookie """
-
-    response = Response({"detail": "Success - Set CSRF cookie."}, status=status.HTTP_202_ACCEPTED)
+    response = JsonResponse({"detail": "Success - Set CSRF cookie."}, status=status.HTTP_202_ACCEPTED)
     response["X-CSRFToken"] = get_token(request)
     return response
 
@@ -34,27 +34,28 @@ def login_view(request):
     password = data.get("password")
 
     if email is None or password is None:
-        return Response({"detail": "Please enter both username and password."},status=status.HTTP_400_BAD_REQUEST)
+        return JsonResponse({"detail": "Please enter both username and password."},status=status.HTTP_400_BAD_REQUEST)
     user = authenticate(email=email, password=password)
 
     if user is not None:
         if user.is_active:
             login(request=request,user=user, backend='django.contrib.auth.backends.ModelBackend')            
-            return Response({"detail": "User logged in successfully."}, status=status.HTTP_200_OK)
+            return JsonResponse({"detail": "User logged in successfully."}, status=status.HTTP_200_OK)
 
         send_verification_email(user=user, path='/account/activate', subject='Account activation for Django App.', message='Go to the following link to activate your account.')
-        return Response({"detail": "Account activation needed, Email with activation link sent."}, status=status.HTTP_204_NO_CONTENT)
+        return JsonResponse({"detail": "Account activation needed, Email with activation link sent."}, status=status.HTTP_204_NO_CONTENT)
 
-    return Response({"detail": "Invalid credentials."}, status=status.HTTP_400_BAD_REQUEST)
+    return JsonResponse({"detail": "Invalid credentials."}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @require_POST
 def logout_view(request):
     """ Logout view """
-    if request.user.is_authenticated:
-        return Response({"detail": "User is not logged in"}, status=status.HTTP_400_BAD_REQUEST)
+    # if not request.user.is_authenticated:
+    #     return Response({"detail": "User is not logged in"}, status=status.HTTP_400_BAD_REQUEST)
+    print("----------- asd \n ----------------")
     logout(request)
-    return Response({"detail": "Logout Successful."}, status=status.HTTP_204_NO_CONTENT)
+    return JsonResponse({"detail": "Logout Successful."}, status=status.HTTP_204_NO_CONTENT)
 
 
 class WhoAmI(APIView):
