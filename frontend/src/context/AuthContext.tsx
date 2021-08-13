@@ -5,8 +5,8 @@ import axiosInstance from "./AxiosConfig";
 import { AuthProps } from "../types/authTypes";
 
 export const ContextAuth = createContext<AuthProps>({
-	isLogedIn: undefined,
-	setIsLogedIn: (value: boolean) => undefined,
+	isLoggedIn: undefined,
+	setIsLoggedIn: (value: boolean) => undefined,
 	csrfToken: "",
 	setCsrfToken: (value: string) => undefined,
 	current_logged_user: undefined,
@@ -16,7 +16,7 @@ export const ContextAuth = createContext<AuthProps>({
 });
 
 const AuthContext = ({ children }: any) => {
-	const [isLogedIn, setIsLogedIn] = useState<boolean | undefined>(undefined);
+	const [isLoggedIn, setIsLoggedIn] = useState<boolean | undefined>(undefined);
 	const [csrfToken, setCsrfToken] = useState<string | undefined>("");
 	const [current_logged_user, setUser] = useState();
 
@@ -31,11 +31,11 @@ const AuthContext = ({ children }: any) => {
 			});
 			if (response.status === 200) {
 				if (response.data.detail === "LoggedIn") {
-					setIsLogedIn(true);
+					setIsLoggedIn(true);
 					setCsrfToken(Cookies.get("csrftoken"));
 					setUser(response.data.user);
 				} else if (response.data.detail === "AnonymousUser") {
-					setIsLogedIn(false);
+					setIsLoggedIn(false);
 				}
 			}
 		} catch (error) {
@@ -54,7 +54,7 @@ const AuthContext = ({ children }: any) => {
 				withCredentials: true,
 			});
 			if (response.status === 200) {
-				setIsLogedIn(false);
+				setIsLoggedIn(false);
 			}
 		} catch (error) {
 			console.error(error);
@@ -73,8 +73,8 @@ const AuthContext = ({ children }: any) => {
 	};
 
 	const AuthContextValues = {
-		isLogedIn,
-		setIsLogedIn,
+		isLoggedIn,
+		setIsLoggedIn,
 		csrfToken,
 		setCsrfToken,
 		current_logged_user,

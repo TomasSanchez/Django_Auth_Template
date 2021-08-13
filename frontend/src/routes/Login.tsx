@@ -7,7 +7,7 @@ import Footer from "../components/Footer";
 document.title = "Login";
 
 const Login = () => {
-	const { isLogedIn, setIsLogedIn, csrfToken, get_csrf, get_current_user_or_log_out } = useContext(ContextAuth);
+	const { isLoggedIn, setIsLoggedIn, csrfToken, get_csrf, get_current_user_or_log_out } = useContext(ContextAuth);
 	const [error, setError] = useState<string>("");
 	const [user, setUser] = useState({
 		email: "",
@@ -28,7 +28,7 @@ const Login = () => {
 				data: JSON.stringify(user),
 			});
 			if (response.status === 200) {
-				setIsLogedIn(true);
+				setIsLoggedIn(true);
 				get_current_user_or_log_out();
 				history.push("/");
 			} else if (response.status === 204) {
@@ -47,7 +47,7 @@ const Login = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	return isLogedIn ? (
+	return isLoggedIn ? (
 		<div className='text-black bg-white container px-5 py-24 mx-auto flex flex-wrap items-center'>
 			{" "}
 			You are already logged in! Go to{" "}

@@ -42,6 +42,7 @@ const ResetPass = () => {
 
 	useEffect(() => {
 		checkToken();
+		// eslint-disable-next-line
 	}, []);
 
 	const handleSubmit = async () => {

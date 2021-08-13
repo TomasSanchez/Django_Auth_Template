@@ -35,6 +35,7 @@ const ActivateAccount = () => {
 
 	useEffect(() => {
 		checkToken();
+		// eslint-disable-next-line
 	}, []);
 
 	return isValidToken === undefined ? (

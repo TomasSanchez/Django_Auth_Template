@@ -14,7 +14,7 @@ const Signup = () => {
 		email: "",
 		password: "",
 	});
-	const { isLogedIn, csrfToken } = useContext(ContextAuth);
+	const { isLoggedIn, csrfToken } = useContext(ContextAuth);
 
 	const handleSubmit = async (e: SyntheticEvent) => {
 		e.preventDefault();
@@ -42,7 +42,7 @@ const Signup = () => {
 		}
 	};
 
-	return isLogedIn ? (
+	return isLoggedIn ? (
 		<div className='bg-cGray-27 mt-10 rounded-lg text-gray-900 mx-10 md:mx-20 lg:mx-32 xl:mx-64 px-10'>
 			<div className=' container px-5 mx-auto flex flex-wrap items-center py-2 pt-5'>
 				{" "}

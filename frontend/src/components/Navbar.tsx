@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { ContextAuth } from "../context/AuthContext";
 
 const Navbar = () => {
-	const { isLogedIn, logoutCurrentUser } = useContext(ContextAuth);
+	const { isLoggedIn, logoutCurrentUser } = useContext(ContextAuth);
 
 	const handleLogout = () => {
 		logoutCurrentUser();
@@ -16,7 +16,7 @@ const Navbar = () => {
 						<span className='ml-3 text-xl'>Home</span>
 					</a>
 					<nav className='md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-700	flex flex-wrap items-center text-base justify-center'>
-						{isLogedIn && (
+						{isLoggedIn && (
 							<a href='/chat' className='mr-5 hover:text-black text-gray-700'>
 								MyChats
 							</a>
@@ -26,7 +26,11 @@ const Navbar = () => {
 						</a>
 					</nav>
 
-					{!isLogedIn ? (
+					{isLoggedIn === undefined ? (
+						<div className=' flex justify-center items-center mb-2'>
+							<div className='animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-cViolet-39 '></div>
+						</div>
+					) : !isLoggedIn ? (
 						<div>
 							<a
 								href='/login'

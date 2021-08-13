@@ -13,12 +13,12 @@ const PrivateRoute = (props: any) => {
 				<div className='animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-cViolet-39 '></div>
 			</div>
 		</div>
-	) : isLoggedIn ? (
+	) : !isLoggedIn ? (
 		<Route {...props} />
 	) : (
 		<Redirect
 			to={{
-				pathname: "/login",
+				pathname: "/",
 				state: { from: location },
 			}}
 		/>

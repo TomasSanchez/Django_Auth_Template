@@ -12,8 +12,8 @@ export type accountType = {
 };
 
 export type AuthProps = {
-	isLogedIn: boolean | undefined;
-	setIsLogedIn: (value: boolean) => void;
+	isLoggedIn: boolean | undefined;
+	setIsLoggedIn: (value: boolean) => void;
 	csrfToken: string | undefined;
 	setCsrfToken: (value: string) => void;
 	current_logged_user: userType | undefined;

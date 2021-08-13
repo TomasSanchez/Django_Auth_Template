@@ -1,4 +1,7 @@
 import "./styles/index.css";
+
+document.title = "Home";
+
 function App() {
 	return (
 		<>

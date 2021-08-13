@@ -4,6 +4,7 @@ import App from "./App";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import AuthContext from "./context/AuthContext";
 import PrivateRoute from "./components/ProtectedRoute";
+import PublicOnlyRoute from "./components/PublicOnlyRoute";
 import Navbar from "./components/Navbar";
 import Login from "./routes/Login";
 import Signup from "./routes/Signup";
@@ -19,8 +20,8 @@ ReactDOM.render(
 		<Router>
 			<Switch>
 				<Route exact path='/' component={App} />
-				<Route exact path='/login' component={Login} />
-				<Route exact path='/signup' component={Signup} />
+				<PublicOnlyRoute exact path='/login' component={Login} />
+				<PublicOnlyRoute exact path='/signup' component={Signup} />
 				<Route exact path='/account/activate' component={ActivateAccount} />
 				<PrivateRoute exact path='/account' component={Account} />
 				<Route exact path='/reset' component={ResetPass} />
