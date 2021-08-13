@@ -39,6 +39,8 @@ POSTGRES_HOST='localhost'
 
 For React:
 
+Create a .env in react root folder (./frontend)
+
 ```bash
 
 Django_OAuth$ cd frontend
@@ -51,7 +53,7 @@ frontend$
 
 # Django:
 
-The Django app is based on [*Django Settings Best Practices*](https://djangostars.com/blog/configuring-django-settings-best-practices/)
+The Django app is based on [_Django Settings Best Practices_](https://djangostars.com/blog/configuring-django-settings-best-practices/)
 
 Django expects the react build folder to be inside backend folder. After running run build move the build folder to ./backend
 
@@ -76,14 +78,13 @@ backend$ source venv/bin/activate
 (venv)backend$ pip install psycopg2 psycopg2-binary
 ```
 
-[*Django*](https://www.djangoproject.com)
+[_Django_](https://www.djangoproject.com)
 
-[*Rest Framework*](https://www.django-rest-framework.org)
+[_Rest Framework_](https://www.django-rest-framework.org)
 
-[*Django Cors Headers*](https://github.com/adamchainz/django-cors-headers)
+[_Django Cors Headers_](https://github.com/adamchainz/django-cors-headers)
 
-[*Django Environ*](https://django-environ.readthedocs.io/en/latest/)
-
+[_Django Environ_](https://django-environ.readthedocs.io/en/latest/)
 
 # React:
 
@@ -160,7 +161,7 @@ purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
 ...
 ```
 
-* Include tailwind in index.css:
+-   Include tailwind in index.css:
 
 ```css
 // index.css
@@ -170,12 +171,17 @@ purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
 ...
 ```
 
-* Aditional Instals:
+-   Aditional Instals:
 
-[*Axios*](https://axios-http.com/docs/intro)
+[_Axios_](https://axios-http.com/docs/intro)
 
-[*ReactRouterDom*](https://reactrouter.com/web/guides/quick-start)
+[_ReactRouterDom_](https://reactrouter.com/web/guides/quick-start)
+
+[_Js-Cookie_](https://www.npmjs.com/package/js-cookie)
+
 ```bash
 frontend$ npm install react-router-dom --save-dev @types/react-router-dom
 frontend$ npm install axios
+frontend$ npm install js-cookie
+frontend$ npm install --save-dev @types/js-cookie
 ```

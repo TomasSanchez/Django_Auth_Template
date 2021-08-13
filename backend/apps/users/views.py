@@ -40,9 +40,9 @@ def login_view(request):
     if user is not None:
         if user.is_active:
             login(request=request,user=user, backend='django.contrib.auth.backends.ModelBackend')            
-            return Response({"detail": "User logged in successfully."}, status=status.HTTP_204_NO_CONTENT)
+            return Response({"detail": "User logged in successfully."}, status=status.HTTP_200_OK)
 
-        send_verification_email(user=user, path='/accounts/activation', subject='Account activation for Django App.', message='Go to the following link to activate your account.')
+        send_verification_email(user=user, path='/account/activate', subject='Account activation for Django App.', message='Go to the following link to activate your account.')
         return Response({"detail": "Account activation needed, Email with activation link sent."}, status=status.HTTP_204_NO_CONTENT)
 
     return Response({"detail": "Invalid credentials."}, status=status.HTTP_400_BAD_REQUEST)
@@ -67,8 +67,8 @@ class WhoAmI(APIView):
         if request.user.is_authenticated:
             user = request.user
             serializer = UserSerializer(user)
-            return Response(serializer.data)
-        return Response({'AnonymousUser'})
+            return Response({'detail':'LoggedIn','user':serializer.data})
+        return Response({'detail':'AnonymousUser'})
 
 
 class CreateUser(APIView):
@@ -81,7 +81,7 @@ class CreateUser(APIView):
         if reg_serializer.is_valid():
             new_user = reg_serializer.save() 
             if new_user:
-                send_verification_email(user=new_user, path='/accounts/activation', subject='Account activation for Django App.', message='Go to the following link to activate your account.')
+                send_verification_email(user=new_user, path='/account/activate', subject='Account activation for Django App.', message='Go to the following link to activate your account.')
                 return Response({'detail': 'User Created.'}, status=status.HTTP_201_CREATED)
         return Response(reg_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -89,6 +89,10 @@ class CreateUser(APIView):
 class VerifyUser(APIView):
     """
     Api endpoint for verifying a user account after creation/registration
+    expects a body of {
+        id: some_id
+        token: 'some_token'
+    }
     """
     permission_classes = [AllowAny]
 
@@ -112,9 +116,9 @@ class ChangePassword(GenericAPIView):
     """
     Api for changing a user password.
     expects a body of {
-        old_password = 'old_pass'
-        new_password = 'new_password'
-        new_password2 = 'new_password'
+        old_password :'old_pass'
+        new_password: 'new_password'
+        new_password2: 'new_password'
     }
 
     """
@@ -172,7 +176,7 @@ class RequestResetPassword(APIView):
         else:
             Response({'detail': 'Request need to include a user id or a user email'}, status=status.HTTP_400_BAD_REQUEST)
         print(f" ----------------------------- \n user: {user} \n-----------------------------")
-        send_verification_email(user=user, path='/accounts/reset-password', subject='Password Reset for Django App.', message='Go to the following link to reset your password.')
+        send_verification_email(user=user, path='/reset', subject='Password Reset for Django App.', message='Go to the following link to reset your password.')
         return Response({'detail': 'Email for password reset sent.'}, status=status.HTTP_204_NO_CONTENT)
 
 # TEST
