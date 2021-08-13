@@ -18,10 +18,6 @@ class Account(models.Model):
 
 
 def post_user_created_signal(sender, instance, created, **kwargs):
-    print(f" ----------------------------- \n sender: {sender} \n-----------------------------")    
-    print(f" ----------------------------- \n instance: {instance} \n-----------------------------")    
-    print(f" ----------------------------- \n created: {created} \n-----------------------------")    
-    print(f" ----------------------------- \n kwargs: {kwargs} \n-----------------------------")    
     if created:
         Account.objects.create(user=instance, user_name='', first_name='', last_name='')
 

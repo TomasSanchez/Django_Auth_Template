@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ContextAuth } from "../../context/AuthContext";
 import axiosInstance from "../../context/AxiosConfig";
 
@@ -13,15 +13,17 @@ const MyInfo = () => {
 		about: "",
 	});
 
-	if (current_logged_user !== undefined) {
-		setUser({
-			email: current_logged_user.email,
-			first_name: current_logged_user.first_name,
-			last_name: current_logged_user.last_name,
-			user_name: current_logged_user.user_name,
-			about: current_logged_user.about,
-		});
-	}
+	useEffect(() => {
+		if (current_logged_user !== undefined) {
+			setUser({
+				email: current_logged_user.email,
+				first_name: current_logged_user.first_name,
+				last_name: current_logged_user.last_name,
+				user_name: current_logged_user.user_name,
+				about: current_logged_user.about,
+			});
+		}
+	}, [current_logged_user]);
 
 	const handleSubmit = async () => {
 		try {
@@ -65,6 +67,7 @@ const MyInfo = () => {
 											</label>
 											<input
 												value={user.first_name}
+												onChange={(e) => setUser({ ...user, first_name: e.target.value })}
 												type='text'
 												name='first-name'
 												id='first-name'
@@ -81,6 +84,7 @@ const MyInfo = () => {
 											</label>
 											<input
 												value={user.last_name}
+												onChange={(e) => setUser({ ...user, last_name: e.target.value })}
 												type='text'
 												name='last-name'
 												id='last-name'
@@ -97,6 +101,7 @@ const MyInfo = () => {
 											</label>
 											<input
 												value={user.email}
+												onChange={(e) => setUser({ ...user, email: e.target.value })}
 												type='text'
 												name='email-address'
 												id='email-address'

@@ -10,7 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
     """
 
     about = serializers.SerializerMethodField()
-    fist_name = serializers.SerializerMethodField()
+    first_name = serializers.SerializerMethodField()
     last_name = serializers.SerializerMethodField()
     user_name = serializers.SerializerMethodField()
     start_date = serializers.SerializerMethodField()
@@ -30,19 +30,19 @@ class UserSerializer(serializers.ModelSerializer):
         return instance
 
     def get_about(self, obj):
-        pass
+        return obj.user_account.about
 
     def get_first_name(self, obj):
-        pass
+        return obj.user_account.first_name
 
     def get_last_name(self, obj):
-        pass
+        return obj.user_account.last_name
 
     def get_user_name(self, obj):
-        pass
+        return obj.user_account.user_name
 
     def get_start_date(self, obj):
-        pass
+        return obj.user_account.start_date
 
 
 class ChangePasswordSerializer(serializers.Serializer):
