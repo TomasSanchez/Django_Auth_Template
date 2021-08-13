@@ -7,7 +7,7 @@ class UserAdminConfig(UserAdmin):
     model = User
     search_fields = ('email', 'first_name',)
     list_filter = ('email', 'is_active', 'is_staff')
-    ordering = ('-start_date',)
+    ordering = ('email',)
     list_display = ('email', 'id', 'is_active', 'is_staff')
     fieldsets = (
         (None, {'fields': ('password', 'email')}),
@@ -18,7 +18,7 @@ class UserAdminConfig(UserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'user_name', 'first_name','last_name', 'password1', 'password2', 'is_active', 'is_staff')}
+            'fields': ('email', 'is_active', 'is_staff')}
          ),
     )
 
