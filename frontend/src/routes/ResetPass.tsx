@@ -35,10 +35,9 @@ const ResetPass = () => {
 			});
 			if (response.status === 200) {
 				setIsValidToken(true);
-			} else {
-				setIsValidToken(false);
 			}
 		} catch (error) {
+			setIsValidToken(false);
 			setError("Something went wrong.");
 		}
 	};
