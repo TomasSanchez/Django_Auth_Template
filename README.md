@@ -1,4 +1,4 @@
-# Django_OAuth
+# Django Auth Template
 
 This is a template of a django + react w/typescript app styled w tailwindcss with minimal functionality like login logout, different enviroments: dev and prod
 and a basic layout integrating everything.
