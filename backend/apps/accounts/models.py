@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 from django.conf import settings
 from django.db.models.signals import post_save
@@ -6,6 +8,7 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 class Account(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='user_account' )
     user_name = models.CharField(max_length=100, unique=True, blank=True, null=True)
     first_name = models.CharField(max_length=100, blank=True)
