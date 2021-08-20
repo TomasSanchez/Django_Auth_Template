@@ -22,7 +22,6 @@ const Signup = () => {
 			const response = await axiosInstance("/api/users/create", {
 				headers: {
 					"Content-Type": "application/json",
-					"X-CSRFToken": csrfToken!,
 				},
 				method: "POST",
 				withCredentials: true,

@@ -21,7 +21,6 @@ const Login = () => {
 			const response = await axiosInstance("/api/users/login", {
 				headers: {
 					"Content-Type": "application/json",
-					"X-CSRFToken": csrfToken!,
 				},
 				method: "POST",
 				withCredentials: true,

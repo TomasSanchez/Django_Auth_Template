@@ -23,10 +23,6 @@ const AuthContext = ({ children }: any) => {
 	const get_current_user_or_log_out = async () => {
 		try {
 			const response = await axiosInstance("/api/users/whoami", {
-				headers: {
-					"Content-Type": "application/json",
-					"X-CSRFToken": csrfToken,
-				},
 				withCredentials: true,
 			});
 			if (response.status === 200) {
@@ -48,7 +44,6 @@ const AuthContext = ({ children }: any) => {
 			const response = await axiosInstance("/api/users/logout", {
 				headers: {
 					"Content-Type": "application/json",
-					"X-CSRFToken": csrfToken!,
 				},
 				method: "POST",
 				withCredentials: true,
@@ -63,9 +58,7 @@ const AuthContext = ({ children }: any) => {
 
 	const get_csrf = async () => {
 		try {
-			const response = await axiosInstance.get("/api/users/get_csrf", {
-				withCredentials: true,
-			});
+			const response = await axiosInstance.get("/api/users/get_csrf");
 			if (response.status === 200) {
 				setCsrfToken(Cookies.get("csrftoken")!);
 			}

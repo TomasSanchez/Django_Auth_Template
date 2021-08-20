@@ -101,6 +101,10 @@ SESSION_COOKIE_SAMESITE = 'Strict'
 CSRF_COOKIE_HTTPONLY = False  # False since we will grab it via universal-cookies
 SESSION_COOKIE_HTTPONLY = True
 
+# default values
+# CSRF_HEADER_NAME = 'HTTP_X_CSRFTOKEN'
+# CSRF_COOKIE_NAME = "csrftoken"
+
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = "America/Argentina/Buenos_Aires"
