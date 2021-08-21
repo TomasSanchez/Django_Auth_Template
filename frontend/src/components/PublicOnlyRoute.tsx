@@ -1,8 +1,9 @@
 import { useContext } from "react";
 import { Redirect, Route, useLocation } from "react-router-dom";
 import { ContextAuth } from "../context/AuthContext";
+import { RoutePropType } from "../types/RouteTypes";
 
-const PrivateRoute = (props: any) => {
+const PrivateRoute = (props: RoutePropType) => {
 	const location = useLocation();
 	const { isLoggedIn } = useContext(ContextAuth);
 

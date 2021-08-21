@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { createContext } from "react";
 import Cookies from "js-cookie";
 import axiosInstance from "./AxiosConfig";
-import { AuthProps } from "../types/authTypes";
+import { AuthProps, AuthContextPropType } from "../types/authTypes";
 
 export const ContextAuth = createContext<AuthProps>({
 	isLoggedIn: undefined,
@@ -15,7 +15,7 @@ export const ContextAuth = createContext<AuthProps>({
 	get_csrf: () => undefined,
 });
 
-const AuthContext = ({ children }: any) => {
+const AuthContext = ({ children }: AuthContextPropType) => {
 	const [isLoggedIn, setIsLoggedIn] = useState<boolean | undefined>(undefined);
 	const [csrfToken, setCsrfToken] = useState<string | undefined>("");
 	const [current_logged_user, setUser] = useState();

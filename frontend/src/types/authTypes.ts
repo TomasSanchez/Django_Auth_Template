@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export type userType = {
 	id: number;
 	email: string;
@@ -25,4 +27,8 @@ export type AuthProps = {
 	get_current_user_or_log_out: VoidFunction;
 	logoutCurrentUser: VoidFunction;
 	get_csrf: VoidFunction;
+};
+
+export type AuthContextPropType = {
+	children: ReactNode;
 };
